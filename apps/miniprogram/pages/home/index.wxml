@@ -1,0 +1,165 @@
+<view class="home-page">
+  <view class="red-hero">
+    <view class="hero-bak" aria-hidden="true">
+      <image class="brand-title-bak" src="/assets/icons/title-bak.png" mode="aspectFill"></image>
+    </view>
+    <!-- <view class="hero-gamepad" aria-hidden="true">
+      <view class="pad-body">
+        <view class="pad-cross pad-cross-h"></view>
+        <view class="pad-cross pad-cross-v"></view>
+        <view class="pad-dot pad-dot-one"></view>
+        <view class="pad-dot pad-dot-two"></view>
+      </view>
+    </view> -->
+    <view class="hero-header">
+      <view>
+        <view class="brand-row">
+          <view class="brand-title">
+            <image class="brand-title-img" src="/assets/icons/title.png" mode="aspectFit"></image>
+          </view>
+        </view>
+        <text class="brand-subtitle">记录买入、卖出和白玩战绩</text>
+      </view>
+      <button class="hero-search" hover-class="hero-search-hover" hover-stay-time="120" bindtap="onOpenSearch">
+        <image class="search-icon-img" src="/assets/icons/search-white.svg" mode="aspectFit"></image>
+      </button>
+    </view>
+  </view>
+
+  <view class="content-shell">
+    <view class="ledger-card">
+      <view class="ledger-topline">
+        <view class="ledger-left">
+          <view class="level-chip">
+            <image class="chip-icon-img" src="/assets/icons/trophy-white.svg" mode="aspectFit"></image>
+            <text>Lv.4 骨灰玩家</text>
+          </view>
+          <view class="rate-chip">
+            <text>回血率 {{summary.paybackRate}}%</text>
+            <view class="rate-line">
+              <view class="rate-fill" style="width: {{summary.paybackRate}}%;"></view>
+            </view>
+          </view>
+        </view>
+        <view class="round-info" hover-class="round-info-hover" hover-stay-time="120" bindtap="onOpenSummaryInfo">
+          <image class="info-icon-img" src="/assets/icons/info.svg" mode="aspectFit"></image>
+        </view>
+      </view>
+
+      <view class="actual-block">
+        <text class="actual-label">实际花费 <text class="muted">(元)</text></text>
+        <view class="actual-value">
+          <text class="yuan">¥</text>
+          <text class="big-number">{{summary.actualCost}}</text>
+        </view>
+      </view>
+
+      <view class="summary-row">
+        <view class="summary-cell">
+          <text class="summary-name">买游戏花了</text>
+          <text class="summary-num">¥{{summary.totalPurchaseCost}}</text>
+        </view>
+        <view class="summary-cell">
+          <text class="summary-name">卖游戏回血</text>
+          <text class="summary-num green">¥{{summary.totalSellPayback}}</text>
+        </view>
+        <view class="summary-cell">
+          <text class="summary-name">当前持有</text>
+          <text class="summary-num">{{summary.holdingCount}} 款</text>
+        </view>
+      </view>
+
+      <view class="free-hint" bindtap="onOpenPaybackHint">
+        <text>距离完全白玩还差 <text class="red-text">¥{{summary.remainingToFree}}</text></text>
+        <text class="arrow">›</text>
+      </view>
+    </view>
+
+    <view class="quick-grid">
+      <view
+        wx:for="{{quickActions}}"
+        wx:key="key"
+        class="quick-card {{item.primary ? 'primary-quick' : ''}}"
+        data-key="{{item.key}}"
+        hover-class="quick-card-hover"
+        hover-stay-time="120"
+        bindtap="onQuickAction"
+      >
+        <view class="quick-icon {{item.iconClass}}">
+          <image class="quick-icon-img" src="{{item.iconSrc}}" mode="aspectFit"></image>
+        </view>
+        <text class="quick-label">{{item.label}}</text>
+      </view>
+    </view>
+
+    <view class="section recent-section">
+      <view class="section-title-row">
+        <text class="section-title">最近入库</text>
+        <view class="plain-link" hover-class="plain-link-hover" hover-stay-time="120" bindtap="onViewLibrary">全部游戏 ›</view>
+      </view>
+
+      <scroll-view class="games-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="games-strip">
+          <view wx:for="{{recentGames}}" wx:key="id" class="mini-game" data-id="{{item.id}}" bindtap="onOpenGame">
+            <view class="game-cover">
+              <image class="game-image" src="{{item.coverUrl}}" mode="aspectFill"></image>
+              <view class="platform {{item.platformClass}}">{{item.platform}}</view>
+              <view wx:if="{{item.isCollection}}" class="heirloom">
+                <image class="heirloom-icon-img" src="/assets/icons/heirloom.png" mode="aspectFit"></image>
+              </view>
+            </view>
+            <text class="mini-title">{{item.title}}</text>
+            <view class="mini-meta-row">
+              <text class="mini-price">{{item.price}}</text>
+              <text class="mini-status">{{item.statusText}}</text>
+            </view>
+            <text class="mini-note">{{item.meta}}</text>
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <view class="play-card">
+      <view class="play-header">
+        <view class="play-title">
+          <image class="play-title-icon" src="/assets/icons/trophy-yellow.svg" mode="aspectFit"></image>
+          <text>白玩战绩</text>
+        </view>
+        <view class="play-actions">
+          <text class="heirloom-count">传家宝 {{achievement.collectionCount}} 款</text>
+          <view class="dark-more" hover-class="dark-more-hover" hover-stay-time="120" bindtap="onOpenPlayStats">详情 ›</view>
+        </view>
+      </view>
+
+      <view class="play-grid">
+        <view wx:for="{{achievementStats}}" wx:key="label" class="play-stat {{item.highlight ? 'hot-stat' : ''}}">
+          <view class="stat-label-row">
+            <image class="stat-icon {{item.iconClass}}" src="{{item.iconSrc}}" mode="aspectFit"></image>
+            <text>{{item.label}}</text>
+          </view>
+          <view class="stat-value-row">
+            <text class="stat-value">{{item.value}}</text>
+            <text wx:if="{{item.unit}}" class="stat-unit">{{item.unit}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="section pending-section">
+      <text class="section-title">待处理游戏</text>
+      <view class="pending-card">
+        <view wx:for="{{tasks}}" wx:key="title" class="pending-row" data-type="{{item.type}}" bindtap="onOpenTask">
+          <view class="pending-icon {{item.iconClass}}">
+            <image class="task-icon-img" src="{{item.iconSrc}}" mode="aspectFit"></image>
+          </view>
+          <view class="pending-copy">
+            <text class="pending-title">{{item.title}}</text>
+            <text class="pending-desc">{{item.desc}}</text>
+          </view>
+          <view class="pending-action" hover-class="pending-action-hover" hover-stay-time="120">{{item.actionText}} ›</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>

@@ -1,0 +1,45 @@
+{
+  "pages": [
+    "pages/home/index",
+    "pages/library/index",
+    "pages/add/index",
+    "pages/stats/index",
+    "pages/settings/index"
+  ],
+  "window": {
+    "navigationBarTitleText": "白玩计划",
+    "navigationBarBackgroundColor": "#e5484d",
+    "navigationBarTextStyle": "white",
+    "backgroundColor": "#f7f4ef"
+  },
+  "tabBar": {
+    "custom": true,
+    "color": "#9ca3af",
+    "selectedColor": "#ef3c35",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/index",
+        "text": "首页"
+      },
+      {
+        "pagePath": "pages/library/index",
+        "text": "游戏库"
+      },
+      {
+        "pagePath": "pages/add/index",
+        "text": "添加"
+      },
+      {
+        "pagePath": "pages/stats/index",
+        "text": "统计"
+      },
+      {
+        "pagePath": "pages/settings/index",
+        "text": "我的"
+      }
+    ]
+  },
+  "style": "v2",
+  "sitemapLocation": "sitemap.json"
+}

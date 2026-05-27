@@ -1,0 +1,4 @@
+<view class="placeholder-page">
+  <text class="placeholder-title">添加</text>
+  <text class="placeholder-desc">后续接入登记买入和登记卖出。</text>
+</view>

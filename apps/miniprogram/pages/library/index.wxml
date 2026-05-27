@@ -1,0 +1,4 @@
+<view class="placeholder-page">
+  <text class="placeholder-title">游戏库</text>
+  <text class="placeholder-desc">管理已登记的实体游戏。</text>
+</view>

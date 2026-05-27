@@ -1,0 +1,20 @@
+<svg width="220" height="220" viewBox="0 0 220 220" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="220" height="220" rx="24" fill="#111827"/>
+  <rect width="220" height="220" rx="24" fill="url(#night)"/>
+  <path d="M-16 150C36 132 82 126 138 142C171 151 199 151 236 140V220H-16V150Z" fill="#0B1024"/>
+  <path d="M12 166H208" stroke="#54B5FF" stroke-width="5" stroke-linecap="round" opacity=".6"/>
+  <path d="M41 127L78 105H142L181 128L168 156H55L41 127Z" fill="#2D3A63"/>
+  <path d="M72 112H137L159 127H51L72 112Z" fill="#38BDF8"/>
+  <circle cx="69" cy="157" r="18" fill="#0A0F1E"/>
+  <circle cx="153" cy="157" r="18" fill="#0A0F1E"/>
+  <circle cx="69" cy="157" r="8" fill="#94A3B8"/>
+  <circle cx="153" cy="157" r="8" fill="#94A3B8"/>
+  <path d="M108 63L124 92L97 78L133 123" stroke="#F97316" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+  <defs>
+    <linearGradient id="night" x1="34" y1="11" x2="181" y2="199" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#0F172A"/>
+      <stop offset=".45" stop-color="#1D4ED8"/>
+      <stop offset="1" stop-color="#111827"/>
+    </linearGradient>
+  </defs>
+</svg>

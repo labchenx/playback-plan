@@ -1,0 +1,4 @@
+<view class="placeholder-page">
+  <text class="placeholder-title">我的</text>
+  <text class="placeholder-desc">管理平台、渠道和数据导出。</text>
+</view>
