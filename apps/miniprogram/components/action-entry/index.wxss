@@ -1,0 +1,43 @@
+@import "../../styles/tokens.wxss";
+
+.action-entry {
+  min-height: 164rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 18rpx;
+  border: 1rpx solid rgba(243, 244, 246, 0.8);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-pressable);
+  transition: transform var(--motion-fast), box-shadow var(--motion-fast);
+}
+
+.action-entry-hover {
+  transform: translateY(8rpx);
+  box-shadow: 0 0 0 #f3f4f6, 0 7rpx 18rpx rgba(21, 29, 44, 0.03);
+}
+
+.action-entry-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 70rpx;
+  height: 70rpx;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-muted);
+  color: #4b5563;
+}
+
+.action-entry-icon-img {
+  width: 62rpx;
+  height: 62rpx;
+}
+
+.action-entry-label {
+  color: var(--color-text);
+  font-size: 19rpx;
+  font-weight: var(--weight-black);
+}

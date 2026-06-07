@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "统计"
+  "navigationBarTitleText": "待回血",
+  "usingComponents": {
+    "status-tag": "/components/status-tag/index"
+  }
 }

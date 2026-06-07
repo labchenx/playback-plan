@@ -1,3 +1,6 @@
 {
-  "navigationBarTitleText": "添加"
+  "navigationBarTitleText": "添加游戏",
+  "usingComponents": {
+    "section-card": "/components/section-card/index"
+  }
 }

@@ -1,0 +1,24 @@
+<view class="bottom-tab">
+  <block wx:for="{{tabs}}" wx:key="key">
+    <add-fab
+      wx:if="{{item.primary}}"
+      data-index="{{index}}"
+      icon-src="{{item.iconSrc}}"
+      label="{{item.label}}"
+      bindfabtap="onTabTap"
+    />
+    <view
+      wx:else
+      class="bottom-tab-item {{selected === index ? 'bottom-tab-item-active' : ''}}"
+      data-index="{{index}}"
+      hover-class="bottom-tab-item-hover"
+      hover-stay-time="120"
+      bindtap="onTabTap"
+    >
+      <view class="bottom-tab-icon-wrap">
+        <image class="bottom-tab-icon-img {{item.iconClass}}" src="{{selected === index && item.activeIconSrc ? item.activeIconSrc : item.iconSrc}}" mode="aspectFit"></image>
+      </view>
+      <text class="bottom-tab-label">{{item.label}}</text>
+    </view>
+  </block>
+</view>

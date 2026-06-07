@@ -1,0 +1,31 @@
+@import "../../styles/tokens.wxss";
+
+.section-card {
+  width: 100%;
+}
+
+.section-card-default {
+  margin-top: 50rpx;
+}
+
+.section-card-compact {
+  margin-top: 40rpx;
+}
+
+.section-card-tab-safe {
+  margin-bottom: 292rpx;
+}
+
+.section-card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 18rpx;
+  padding: 0 var(--space-1);
+}
+
+.section-card-title {
+  color: var(--color-text);
+  font-size: var(--font-title);
+  font-weight: var(--weight-black);
+}

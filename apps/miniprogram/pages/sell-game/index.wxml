@@ -1,0 +1,221 @@
+<view class="sell-page">
+  <view class="sell-hero">
+    <view class="hero-gamepad" aria-hidden="true">
+      <view class="pad-cross pad-cross-h"></view>
+      <view class="pad-cross pad-cross-v"></view>
+      <view class="pad-dot pad-dot-one"></view>
+      <view class="pad-dot pad-dot-two"></view>
+    </view>
+
+    <view class="nav-row">
+      <view class="back-button" hover-class="back-button-hover" hover-stay-time="120" bindtap="onBack">
+        <view class="back-chevron"></view>
+      </view>
+      <view class="title-block">
+        <text class="page-title">记录卖出</text>
+        <text class="page-subtitle">{{heroSubtitle}}</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="sell-shell">
+    <view wx:if="{{isLoading}}" class="state-card">
+      <view class="loading-mark"></view>
+      <text class="state-title">正在读取游戏</text>
+      <text class="state-desc">请稍等一下</text>
+    </view>
+
+    <view wx:elif="{{notFound}}" class="state-card">
+      <view class="empty-icon">!</view>
+      <text class="state-title">没有找到这款游戏</text>
+      <text class="state-desc">返回游戏详情页后再试一次</text>
+      <view class="state-button" hover-class="state-button-hover" hover-stay-time="120" bindtap="onBack">返回</view>
+    </view>
+
+    <view wx:elif="{{blockedMessage}}" class="state-card">
+      <view class="empty-icon">!</view>
+      <text class="state-title">{{blockedMessage}}</text>
+      <text class="state-desc">正在返回游戏详情页</text>
+    </view>
+
+    <block wx:else>
+      <view class="game-card">
+        <view class="cover-box">
+          <image wx:if="{{game.hasCover}}" class="cover-image" src="{{game.coverUrl}}" mode="aspectFill"></image>
+          <view wx:else class="cover-placeholder">
+            <text class="cover-main">游</text>
+            <text class="cover-sub">{{game.platformText}}</text>
+          </view>
+        </view>
+
+        <view class="game-main">
+          <text class="game-name">{{game.name}}</text>
+          <view class="tag-row">
+            <view class="media-pill">实体版</view>
+            <status-tag text="{{game.platformText}}" variant="{{game.platformClass}}" />
+            <status-tag text="{{game.statusText}}" variant="{{game.statusVariant}}" />
+          </view>
+          <view class="meta-row">
+            <text>买入 <text class="meta-strong">{{game.purchaseTotalText}}</text></text>
+            <text>已持有 <text class="meta-strong">{{game.holdingDaysText}}</text></text>
+          </view>
+        </view>
+      </view>
+
+      <view class="form-card">
+        <view class="card-title-row">
+          <text class="card-title-marker"></text>
+          <text class="card-title">卖出信息</text>
+        </view>
+
+        <view class="two-column">
+          <view class="form-field compact-field">
+            <text class="field-label">卖出成交价</text>
+            <view class="money-input-wrap money-input-primary">
+              <text class="money-prefix">¥</text>
+              <input
+                class="text-input money-input"
+                type="digit"
+                value="{{form.soldPrice}}"
+                data-field="soldPrice"
+                placeholder="例如 280"
+                placeholder-class="input-placeholder"
+                bindinput="onInput"
+              />
+            </view>
+          </view>
+
+          <view class="form-field compact-field">
+            <text class="field-label">卖出日期</text>
+            <picker mode="date" value="{{form.soldDate}}" bindchange="onDateChange">
+              <view class="date-input">
+                <text class="date-icon">□</text>
+                <text>{{form.soldDate}}</text>
+              </view>
+            </picker>
+          </view>
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">卖出渠道</text>
+          <scroll-view class="channel-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+            <view class="channel-strip">
+              <view
+                wx:for="{{sellChannelOptions}}"
+                wx:key="value"
+                class="choice-chip {{form.sellChannel === item.value ? 'choice-chip-active' : ''}}"
+                data-value="{{item.value}}"
+                hover-class="chip-hover"
+                hover-stay-time="120"
+                bindtap="onSelectChannel"
+              >
+                {{item.label}}
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+
+        <view class="two-column fee-grid">
+          <view class="form-field compact-field">
+            <text class="field-label">卖出运费</text>
+            <view class="money-input-wrap">
+              <text class="money-prefix muted-prefix">¥</text>
+              <input
+                class="text-input money-input fee-input"
+                type="digit"
+                value="{{form.sellShippingFee}}"
+                data-field="sellShippingFee"
+                placeholder="选填"
+                placeholder-class="input-placeholder"
+                bindinput="onInput"
+              />
+            </view>
+          </view>
+
+          <view class="form-field compact-field">
+            <text class="field-label">平台手续费</text>
+            <view class="money-input-wrap">
+              <text class="money-prefix muted-prefix">¥</text>
+              <input
+                class="text-input money-input fee-input"
+                type="digit"
+                value="{{form.sellPlatformFee}}"
+                data-field="sellPlatformFee"
+                placeholder="选填"
+                placeholder-class="input-placeholder"
+                bindinput="onInput"
+              />
+            </view>
+          </view>
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">其他费用 <text class="optional">(选填)</text></text>
+          <view class="money-input-wrap">
+            <text class="money-prefix muted-prefix">¥</text>
+            <input
+              class="text-input money-input fee-input"
+              type="digit"
+              value="{{form.sellOtherFee}}"
+              data-field="sellOtherFee"
+              placeholder="例如包装材料、让利补差"
+              placeholder-class="input-placeholder"
+              bindinput="onInput"
+            />
+          </view>
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">备注 <text class="optional">(选填)</text></text>
+          <textarea
+            class="note-input"
+            value="{{form.sellNote}}"
+            data-field="sellNote"
+            maxlength="200"
+            placeholder="例如包邮、议价、买家备注等"
+            placeholder-class="input-placeholder"
+            bindinput="onInput"
+          />
+        </view>
+      </view>
+
+      <view class="preview-card {{preview.isReady ? '' : 'preview-card-empty'}}">
+        <view class="preview-glow" aria-hidden="true"></view>
+        <view class="preview-title">预计结果</view>
+
+        <view class="preview-grid">
+          <view class="preview-mini">
+            <text class="preview-label">买入花费</text>
+            <text class="preview-value">{{preview.purchaseTotalText}}</text>
+          </view>
+          <view class="preview-mini">
+            <text class="preview-label">预计回血</text>
+            <text class="preview-value success-value">{{preview.sellNetAmountText}}</text>
+          </view>
+        </view>
+
+        <view class="preview-bottom">
+          <view class="final-block">
+            <text class="preview-label">预计最终花费</text>
+            <text class="final-value final-value-{{preview.finalCostTone}}">{{preview.finalCostText}}</text>
+          </view>
+          <view class="index-block">
+            <text class="preview-label">预计白玩指数</text>
+            <text class="index-value">{{preview.playIndexText}}</text>
+            <text class="level-badge">{{preview.playLevelText}}</text>
+          </view>
+        </view>
+
+        <text class="preview-helper">{{preview.helperText}}</text>
+      </view>
+    </block>
+  </view>
+
+  <view wx:if="{{!isLoading && !notFound && game}}" class="bottom-actions">
+    <view class="cancel-button" hover-class="cancel-button-hover" hover-stay-time="120" bindtap="onCancel">取消</view>
+    <view class="save-button {{isSaving ? 'save-button-disabled' : ''}}" hover-class="save-button-hover" hover-stay-time="120" bindtap="onSave">
+      <text class="button-check">✓</text>
+      <text>保存并生成结果</text>
+    </view>
+  </view>
+</view>

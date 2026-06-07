@@ -1,0 +1,3 @@
+<view class="status-tag status-tag-{{variant}} {{floating ? 'status-tag-floating' : ''}}">
+  <text>{{text}}</text>
+</view>

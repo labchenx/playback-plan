@@ -154,7 +154,7 @@ Page({
     const tabBar = typeof this.getTabBar === 'function' ? this.getTabBar() : null;
 
     if (tabBar) {
-      tabBar.setData({ selected: 0 });
+      tabBar.setData({ selected: 0, hidden: false });
     }
   },
 
@@ -180,8 +180,8 @@ Page({
     });
   },
 
-  onQuickAction(event: WechatMiniprogram.TouchEvent) {
-    const key = event.currentTarget.dataset.key as QuickActionKey;
+  onQuickAction(event: WechatMiniprogram.CustomEvent<{ key: QuickActionKey }>) {
+    const key = event.detail.key;
     const actionTitle: Record<QuickActionKey, string> = {
       purchase: '登记买入',
       sell: '登记卖出',
@@ -202,8 +202,8 @@ Page({
     });
   },
 
-  onOpenGame(event: WechatMiniprogram.TouchEvent) {
-    const id = event.currentTarget.dataset.id;
+  onOpenGame(event: WechatMiniprogram.CustomEvent<{ id: string }>) {
+    const id = event.detail.id;
     wx.showToast({
       title: `打开游戏 ${id}`,
       icon: 'none'

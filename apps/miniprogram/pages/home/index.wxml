@@ -76,48 +76,27 @@
     </view>
 
     <view class="quick-grid">
-      <view
+      <action-entry
         wx:for="{{quickActions}}"
         wx:key="key"
-        class="quick-card {{item.primary ? 'primary-quick' : ''}}"
-        data-key="{{item.key}}"
-        hover-class="quick-card-hover"
-        hover-stay-time="120"
-        bindtap="onQuickAction"
-      >
-        <view class="quick-icon {{item.iconClass}}">
-          <image class="quick-icon-img" src="{{item.iconSrc}}" mode="aspectFit"></image>
-        </view>
-        <text class="quick-label">{{item.label}}</text>
-      </view>
+        action-key="{{item.key}}"
+        label="{{item.label}}"
+        icon-src="{{item.iconSrc}}"
+        icon-class="{{item.iconClass}}"
+        primary="{{item.primary}}"
+        bindentrytap="onQuickAction"
+      />
     </view>
 
-    <view class="section recent-section">
-      <view class="section-title-row">
-        <text class="section-title">最近入库</text>
-        <view class="plain-link" hover-class="plain-link-hover" hover-stay-time="120" bindtap="onViewLibrary">全部游戏 ›</view>
-      </view>
+    <section-card title="最近入库">
+      <view slot="extra" class="plain-link" hover-class="plain-link-hover" hover-stay-time="120" bindtap="onViewLibrary">全部游戏 ›</view>
 
       <scroll-view class="games-scroll" scroll-x enhanced show-scrollbar="{{false}}">
         <view class="games-strip">
-          <view wx:for="{{recentGames}}" wx:key="id" class="mini-game" data-id="{{item.id}}" bindtap="onOpenGame">
-            <view class="game-cover">
-              <image class="game-image" src="{{item.coverUrl}}" mode="aspectFill"></image>
-              <view class="platform {{item.platformClass}}">{{item.platform}}</view>
-              <view wx:if="{{item.isCollection}}" class="heirloom">
-                <image class="heirloom-icon-img" src="/assets/icons/heirloom.png" mode="aspectFit"></image>
-              </view>
-            </view>
-            <text class="mini-title">{{item.title}}</text>
-            <view class="mini-meta-row">
-              <text class="mini-price">{{item.price}}</text>
-              <text class="mini-status">{{item.statusText}}</text>
-            </view>
-            <text class="mini-note">{{item.meta}}</text>
-          </view>
+          <game-cover-card wx:for="{{recentGames}}" wx:key="id" game="{{item}}" bindcardtap="onOpenGame" />
         </view>
       </scroll-view>
-    </view>
+    </section-card>
 
     <view class="play-card">
       <view class="play-header">
@@ -132,21 +111,20 @@
       </view>
 
       <view class="play-grid">
-        <view wx:for="{{achievementStats}}" wx:key="label" class="play-stat {{item.highlight ? 'hot-stat' : ''}}">
-          <view class="stat-label-row">
-            <image class="stat-icon {{item.iconClass}}" src="{{item.iconSrc}}" mode="aspectFit"></image>
-            <text>{{item.label}}</text>
-          </view>
-          <view class="stat-value-row">
-            <text class="stat-value">{{item.value}}</text>
-            <text wx:if="{{item.unit}}" class="stat-unit">{{item.unit}}</text>
-          </view>
-        </view>
+        <stat-card
+          wx:for="{{achievementStats}}"
+          wx:key="label"
+          label="{{item.label}}"
+          value="{{item.value}}"
+          unit="{{item.unit}}"
+          icon-src="{{item.iconSrc}}"
+          icon-class="{{item.iconClass}}"
+          highlight="{{item.highlight}}"
+        />
       </view>
     </view>
 
-    <view class="section pending-section">
-      <text class="section-title">待处理游戏</text>
+    <section-card title="待处理游戏" spacing="compact" tab-safe="{{true}}">
       <view class="pending-card">
         <view wx:for="{{tasks}}" wx:key="title" class="pending-row" data-type="{{item.type}}" bindtap="onOpenTask">
           <view class="pending-icon {{item.iconClass}}">
@@ -159,7 +137,7 @@
           <view class="pending-action" hover-class="pending-action-hover" hover-stay-time="120">{{item.actionText}} ›</view>
         </view>
       </view>
-    </view>
+    </section-card>
   </view>
 
 </view>

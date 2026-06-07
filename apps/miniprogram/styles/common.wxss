@@ -1,0 +1,51 @@
+@import "./tokens.wxss";
+
+.ds-card {
+  border: 1rpx solid var(--color-line);
+  border-radius: var(--radius-xl);
+  background: var(--color-surface);
+  box-shadow: var(--shadow-card);
+}
+
+.ds-card-elevated {
+  box-shadow: var(--shadow-soft);
+}
+
+.ds-row-center {
+  display: flex;
+  align-items: center;
+}
+
+.ds-icon-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+}
+
+.ds-pill {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-pill);
+  font-weight: var(--weight-black);
+  white-space: nowrap;
+}
+
+.ds-section-title {
+  color: var(--color-text);
+  font-size: var(--font-title);
+  font-weight: var(--weight-black);
+}
+
+.ds-text-muted {
+  color: var(--color-text-muted);
+}
+
+.ds-text-brand {
+  color: var(--color-brand);
+}
+
+.ds-text-success {
+  color: var(--color-success);
+}

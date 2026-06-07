@@ -3,6 +3,9 @@
     "pages/home/index",
     "pages/library/index",
     "pages/add/index",
+    "pages/game-detail/index",
+    "pages/sell-game/index",
+    "pages/sell-result/index",
     "pages/stats/index",
     "pages/settings/index"
   ],
@@ -32,7 +35,7 @@
       },
       {
         "pagePath": "pages/stats/index",
-        "text": "统计"
+        "text": "待回血"
       },
       {
         "pagePath": "pages/settings/index",

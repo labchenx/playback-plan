@@ -1,0 +1,6 @@
+<view class="add-fab" hover-class="add-fab-hover" hover-stay-time="120" bindtap="onTap">
+  <view class="add-fab-icon-wrap">
+    <image class="add-fab-icon-img" src="{{iconSrc}}" mode="aspectFit"></image>
+  </view>
+  <text class="add-fab-label">{{label}}</text>
+</view>

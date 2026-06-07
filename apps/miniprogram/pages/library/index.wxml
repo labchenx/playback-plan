@@ -1,4 +1,159 @@
-<view class="placeholder-page">
-  <text class="placeholder-title">游戏库</text>
-  <text class="placeholder-desc">管理已登记的实体游戏。</text>
+<view class="library-page">
+  <view class="library-hero">
+    <view class="hero-header">
+      <view class="title-block">
+        <text class="page-title">游戏库</text>
+        <text class="page-subtitle">管理你的实体和数字游戏</text>
+      </view>
+      <view class="hero-tool" aria-hidden="true">
+        <text class="hero-tool-line"></text>
+        <text class="hero-tool-line hero-tool-line-short"></text>
+      </view>
+    </view>
+  </view>
+
+  <view class="library-shell">
+    <view class="search-box">
+      <text class="search-icon">⌕</text>
+      <input
+        class="search-input"
+        value="{{searchText}}"
+        placeholder="搜索游戏名称"
+        placeholder-class="input-placeholder"
+        bindinput="onSearchInput"
+      />
+    </view>
+
+    <view class="filter-panel">
+      <view class="media-segment">
+        <view
+          wx:for="{{mediaTypeOptions}}"
+          wx:key="value"
+          class="media-segment-item {{selectedMediaType === item.value ? 'media-segment-active' : ''}}"
+          data-value="{{item.value}}"
+          hover-class="chip-hover"
+          hover-stay-time="120"
+          bindtap="onSelectMediaType"
+        >
+          {{item.label}}
+        </view>
+      </view>
+
+      <scroll-view class="status-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+        <view class="status-strip">
+          <view
+            wx:for="{{statusOptions}}"
+            wx:key="value"
+            class="status-chip {{selectedStatus === item.value ? 'status-chip-active' : ''}}"
+            data-value="{{item.value}}"
+            hover-class="chip-hover"
+            hover-stay-time="120"
+            bindtap="onSelectStatus"
+          >
+            {{item.label}}
+          </view>
+        </view>
+      </scroll-view>
+    </view>
+
+    <section-card wx:if="{{hasFilteredGames}}" spacing="compact" tab-safe="{{true}}">
+      <view class="game-list">
+        <view
+          wx:for="{{displayGames}}"
+          wx:key="id"
+          class="game-card"
+          data-id="{{item.id}}"
+          hover-class="game-card-hover"
+          hover-stay-time="120"
+          bindtap="onOpenGame"
+        >
+          <view class="cover-box">
+            <image wx:if="{{item.hasCover}}" class="cover-image" src="{{item.coverUrl}}" mode="aspectFill"></image>
+            <view wx:else class="cover-placeholder">
+              <text class="cover-placeholder-main">游</text>
+              <text class="cover-placeholder-sub">{{item.platformText}}</text>
+            </view>
+            <status-tag text="{{item.platformText}}" variant="{{item.platformClass}}" floating="{{true}}" />
+            <view wx:if="{{item.isCollection}}" class="cover-heirloom">传家宝</view>
+          </view>
+
+          <view class="game-main">
+            <text class="game-title">{{item.name}}</text>
+
+            <view class="tag-row">
+              <view class="media-pill {{item.mediaTypeClass}}">
+                <text class="media-icon"></text>
+                <text>{{item.mediaTypeText}}</text>
+              </view>
+              <status-tag text="{{item.statusText}}" variant="{{item.statusVariant}}" />
+            </view>
+
+            <view class="meta-line">
+              <text class="meta-label">{{item.priceLabel}}</text>
+              <text class="meta-value">{{item.priceText}}</text>
+
+              <block wx:if="{{item.isSoldPhysical}}">
+                <text class="meta-label meta-gap">回血</text>
+                <text class="meta-value success-value">{{item.sellPaybackText}}</text>
+              </block>
+
+              <block wx:elif="{{item.isDigital}}">
+                <text class="meta-separator"></text>
+                <text class="meta-muted">{{item.purchaseChannelText}}</text>
+              </block>
+
+              <block wx:else>
+                <text class="meta-separator"></text>
+                <text class="meta-muted">{{item.holdDaysText}}</text>
+              </block>
+            </view>
+
+            <view wx:if="{{!item.isSoldPhysical}}" class="date-line">
+              <text>购买日期</text>
+              <text>{{item.purchaseDateText}}</text>
+            </view>
+
+            <view wx:if="{{item.isSoldPhysical}}" class="result-strip">
+              <view class="result-index">
+                <text class="result-icon">♨</text>
+                <text class="result-label">白玩指数</text>
+                <text class="result-value">{{item.playIndexText}}</text>
+              </view>
+              <view class="level-pill">{{item.playLevelText}}</view>
+            </view>
+
+            <view wx:else class="card-bottom">
+              <view wx:if="{{item.cardHintText}}" class="card-hint {{item.isDigital ? 'card-hint-muted' : ''}}">
+                <text class="hint-icon">{{item.isCollection ? '♜' : item.isDigital ? 'ⓘ' : '◎'}}</text>
+                <text>{{item.cardHintText}}</text>
+              </view>
+
+              <view class="card-actions">
+                <view class="detail-button" data-id="{{item.id}}" catchtap="onOpenGame">详情</view>
+                <view
+                  wx:if="{{item.showRecordSell}}"
+                  class="sell-button"
+                  data-id="{{item.id}}"
+                  catchtap="onRecordSell"
+                >
+                  记录卖出
+                </view>
+                <view wx:else class="arrow-button" data-id="{{item.id}}" catchtap="onOpenGame">›</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </section-card>
+
+    <section-card wx:else spacing="compact" tab-safe="{{true}}">
+      <view class="empty-card">
+        <view class="empty-icon">＋</view>
+        <text class="empty-title">{{hasGames ? '没有符合条件的游戏' : '还没有游戏记录'}}</text>
+        <text class="empty-desc">{{hasGames ? '换个筛选条件再看看' : '添加第一款游戏，开始你的白玩计划'}}</text>
+        <view class="empty-button" hover-class="empty-button-hover" hover-stay-time="120" bindtap="onAddGame">+ 添加游戏</view>
+      </view>
+    </section-card>
+  </view>
+
 </view>

@@ -1,4 +1,192 @@
-<view class="placeholder-page">
-  <text class="placeholder-title">添加</text>
-  <text class="placeholder-desc">后续接入登记买入和登记卖出。</text>
+<view class="add-page">
+  <view class="add-hero">
+    <view class="hero-gamepad" aria-hidden="true">
+      <view class="pad-cross pad-cross-h"></view>
+      <view class="pad-cross pad-cross-v"></view>
+      <view class="pad-dot pad-dot-one"></view>
+      <view class="pad-dot pad-dot-two"></view>
+    </view>
+    <view class="nav-row">
+      <view class="back-button" hover-class="back-button-hover" hover-stay-time="120" bindtap="onBack">
+        <view class="back-chevron"></view>
+      </view>
+      <view class="title-block">
+        <text class="page-title">添加游戏</text>
+        <text class="page-subtitle">记录一款新的游戏</text>
+      </view>
+    </view>
+  </view>
+
+  <view class="form-shell">
+    <section-card spacing="compact">
+      <view class="form-card">
+        <view class="card-title-row card-title-red">
+          <text class="card-title-marker"></text>
+          <text class="card-title">游戏信息</text>
+        </view>
+
+        <view class="media-toggle">
+          <view
+            wx:for="{{mediaTypeOptions}}"
+            wx:key="value"
+            class="media-option {{form.mediaType === item.value ? 'media-option-active' : ''}}"
+            data-value="{{item.value}}"
+            hover-class="chip-hover"
+            hover-stay-time="120"
+            bindtap="onSelectMediaType"
+          >
+            <text class="media-dot"></text>
+            <text>{{item.label}}</text>
+          </view>
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">游戏名称</text>
+          <input class="text-input" value="{{form.name}}" data-field="name" placeholder="请输入游戏名称" placeholder-class="input-placeholder" bindinput="onInput" />
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">平台</text>
+          <view class="chip-row">
+            <view
+              wx:for="{{platformOptions}}"
+              wx:key="value"
+              class="choice-chip {{form.platform === item.value ? 'choice-chip-active' : ''}}"
+              data-value="{{item.value}}"
+              hover-class="chip-hover"
+              hover-stay-time="120"
+              bindtap="onSelectPlatform"
+            >
+              {{item.label}}
+            </view>
+          </view>
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">区服 / 版本 <text class="optional">(选填)</text></text>
+          <view class="chip-row chip-row-small">
+            <view
+              wx:for="{{regionOptions}}"
+              wx:key="value"
+              class="choice-chip choice-chip-small {{form.region === item.value ? 'choice-chip-active-soft' : ''}}"
+              data-value="{{item.value}}"
+              hover-class="chip-hover"
+              hover-stay-time="120"
+              bindtap="onSelectRegion"
+            >
+              {{item.label}}
+            </view>
+          </view>
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">当前状态</text>
+          <view class="chip-row">
+            <view
+              wx:for="{{statusOptions}}"
+              wx:key="value"
+              class="status-chip {{form.status === item.value ? 'status-chip-active' : ''}}"
+              data-value="{{item.value}}"
+              hover-class="chip-hover"
+              hover-stay-time="120"
+              bindtap="onSelectStatus"
+            >
+              <text wx:if="{{form.status === item.value}}" class="check-mark">✓</text>
+              <text>{{item.label}}</text>
+            </view>
+          </view>
+        </view>
+      </view>
+    </section-card>
+
+    <section-card spacing="compact">
+      <view class="form-card">
+        <view class="card-title-row card-title-amber">
+          <text class="card-title-marker"></text>
+          <text class="card-title">{{form.mediaType === 'digital' ? '购买信息' : '买入信息'}}</text>
+        </view>
+
+        <view class="two-column">
+          <view class="form-field compact-field">
+            <text class="field-label">{{form.mediaType === 'digital' ? '购买价格' : '买入价格'}}</text>
+            <view class="money-input-wrap">
+              <text class="money-prefix">¥</text>
+              <input class="text-input money-input" type="digit" value="{{form.purchasePrice}}" data-field="purchasePrice" placeholder="例如 260" placeholder-class="input-placeholder" bindinput="onInput" />
+            </view>
+          </view>
+
+          <view class="form-field compact-field">
+            <text class="field-label">购买日期</text>
+            <picker mode="date" value="{{form.purchaseDate}}" bindchange="onDateChange">
+              <view class="date-input">{{form.purchaseDate}}</view>
+            </picker>
+          </view>
+        </view>
+
+        <view wx:if="{{form.mediaType === 'physical'}}" class="form-field">
+          <text class="field-label">买入运费 <text class="optional">(选填)</text></text>
+          <view class="money-input-wrap">
+            <text class="money-prefix">¥</text>
+            <input class="text-input money-input" type="digit" value="{{form.purchaseShippingFee}}" data-field="purchaseShippingFee" placeholder="选填" placeholder-class="input-placeholder" bindinput="onInput" />
+          </view>
+        </view>
+
+        <view wx:else class="digital-note">
+          <text>数字版不记录买入运费，也不会进入待回血或白玩指数统计。</text>
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">购买渠道</text>
+          <scroll-view class="channel-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+            <view class="channel-strip">
+              <view
+                wx:for="{{channelOptions}}"
+                wx:key="value"
+                class="choice-chip {{form.purchaseChannel === item.value ? 'choice-chip-active-soft' : ''}}"
+                data-value="{{item.value}}"
+                hover-class="chip-hover"
+                hover-stay-time="120"
+                bindtap="onSelectChannel"
+              >
+                {{item.label}}
+              </view>
+            </view>
+          </scroll-view>
+        </view>
+      </view>
+    </section-card>
+
+    <section-card spacing="compact">
+      <view class="form-card">
+        <view class="card-title-row card-title-gray">
+          <text class="card-title-marker"></text>
+          <text class="card-title">补充信息</text>
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">上传封面或实物照片</text>
+          <view class="upload-zone {{form.coverUrl ? 'upload-zone-filled' : ''}}" hover-class="upload-zone-hover" hover-stay-time="120" bindtap="onChooseCover">
+            <image wx:if="{{form.coverUrl}}" class="cover-preview" src="{{form.coverUrl}}" mode="aspectFill"></image>
+            <view wx:else class="upload-empty">
+              <text class="upload-icon">＋</text>
+              <text>点击上传照片</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="form-field">
+          <text class="field-label">备注 <text class="optional">(选填)</text></text>
+          <textarea class="note-input" value="{{form.note}}" data-field="note" maxlength="200" placeholder="例如是否带特典、购买说明等" placeholder-class="input-placeholder" bindinput="onInput" />
+        </view>
+      </view>
+    </section-card>
+  </view>
+
+  <view class="bottom-actions">
+    <view class="save-button {{isSaving ? 'save-button-disabled' : ''}}" hover-class="save-button-hover" hover-stay-time="120" bindtap="onSaveGame">
+      <text class="button-check">✓</text>
+      <text>保存游戏</text>
+    </view>
+    <view class="continue-button {{isSaving ? 'continue-button-disabled' : ''}}" hover-class="continue-button-hover" hover-stay-time="120" bindtap="onSaveAndContinue">保存并继续添加</view>
+  </view>
 </view>

@@ -1,0 +1,11 @@
+<view
+  class="action-entry {{primary ? 'action-entry-primary' : ''}}"
+  hover-class="action-entry-hover"
+  hover-stay-time="120"
+  bindtap="onTap"
+>
+  <view class="action-entry-icon {{iconClass}}">
+    <image class="action-entry-icon-img" src="{{iconSrc}}" mode="aspectFit"></image>
+  </view>
+  <text class="action-entry-label">{{label}}</text>
+</view>

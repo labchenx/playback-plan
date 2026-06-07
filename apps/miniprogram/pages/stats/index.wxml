@@ -1,4 +1,136 @@
-<view class="placeholder-page">
-  <text class="placeholder-title">统计</text>
-  <text class="placeholder-desc">查看白玩战绩和回血概览。</text>
+<view class="recovery-page">
+  <view class="recovery-hero">
+    <view class="hero-mark" aria-hidden="true">
+      <view class="hero-mark-loop"></view>
+      <view class="hero-mark-arrow"></view>
+    </view>
+
+    <view class="hero-header">
+      <view class="title-block">
+        <text class="page-title">待回血</text>
+        <text class="page-subtitle">这些游戏可以考虑处理</text>
+      </view>
+      <view class="hero-pill" hover-class="hero-pill-hover" hover-stay-time="120" bindtap="onShowEmptyState">看空状态</view>
+    </view>
+  </view>
+
+  <view class="recovery-shell">
+    <view class="stats-grid">
+      <view wx:for="{{stats}}" wx:key="label" class="stat-card stat-card-{{item.tone}}">
+        <view class="stat-left">
+          <view class="stat-icon"></view>
+          <text class="stat-label">{{item.label}}</text>
+        </view>
+        <view class="stat-value-wrap">
+          <text class="stat-value">{{item.value}}</text>
+          <text class="stat-unit">{{item.unit}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="rule-tip">
+      <view class="rule-icon">i</view>
+      <text>只展示实体版待处理游戏，数字版和传家宝不会进入待回血。</text>
+    </view>
+
+    <scroll-view class="filter-scroll" scroll-x enhanced show-scrollbar="{{false}}">
+      <view class="filter-strip">
+        <view
+          wx:for="{{filterOptions}}"
+          wx:key="value"
+          class="filter-chip {{selectedFilter === item.value ? 'filter-chip-active' : ''}}"
+          data-value="{{item.value}}"
+          hover-class="filter-chip-hover"
+          hover-stay-time="120"
+          bindtap="onSelectFilter"
+        >
+          {{item.label}}
+        </view>
+      </view>
+    </scroll-view>
+
+    <view wx:if="{{hasFilteredGames}}" class="game-list">
+      <view
+        wx:for="{{displayGames}}"
+        wx:key="id"
+        class="recovery-card"
+        data-id="{{item.id}}"
+        hover-class="recovery-card-hover"
+        hover-stay-time="120"
+        bindtap="onOpenGame"
+      >
+        <view class="card-main-row">
+          <view class="cover-box">
+            <image wx:if="{{item.hasCover}}" class="cover-image" src="{{item.coverUrl}}" mode="aspectFill"></image>
+            <view wx:else class="cover-placeholder">
+              <text class="cover-placeholder-main">游</text>
+              <text class="cover-placeholder-sub">{{item.platformText}}</text>
+            </view>
+            <status-tag text="{{item.platformText}}" variant="{{item.platformClass}}" floating="{{true}}" />
+          </view>
+
+          <view class="game-main">
+            <text class="game-title">{{item.name}}</text>
+
+            <view class="tag-row">
+              <view class="media-pill">
+                <text class="media-dot"></text>
+                <text>实体版</text>
+              </view>
+              <status-tag text="{{item.statusText}}" variant="{{item.statusVariant}}" />
+            </view>
+
+            <view class="meta-line">
+              <text class="meta-label">买入</text>
+              <text class="meta-value">{{item.purchaseTotalText}}</text>
+              <text class="meta-separator"></text>
+              <text class="meta-muted">{{item.holdingDaysText}}</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="reason-box">
+          <view class="reason-icon">↻</view>
+          <text>{{item.reasonText}}</text>
+        </view>
+
+        <view class="action-row">
+          <view
+            class="secondary-action"
+            data-action="{{item.secondaryActionText}}"
+            hover-class="secondary-action-hover"
+            hover-stay-time="120"
+            catchtap="onTodoAction"
+          >
+            {{item.secondaryActionText}}
+          </view>
+          <view
+            class="sell-action"
+            data-id="{{item.id}}"
+            hover-class="sell-action-hover"
+            hover-stay-time="120"
+            catchtap="onRecordSell"
+          >
+            记录卖出
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view wx:else class="empty-card">
+      <view class="empty-icon">✓</view>
+      <text class="empty-title">{{hasRecoveryGames ? '当前分类没有游戏' : '暂时没有待回血游戏'}}</text>
+      <text class="empty-desc">{{hasRecoveryGames ? '换个分类再看看' : '已出售、数字版、未开始和传家宝都不会显示在这里'}}</text>
+      <view
+        wx:if="{{hasRecoveryGames}}"
+        class="empty-button"
+        data-value="all"
+        hover-class="empty-button-hover"
+        hover-stay-time="120"
+        bindtap="onSelectFilter"
+      >
+        查看全部
+      </view>
+    </view>
+  </view>
 </view>

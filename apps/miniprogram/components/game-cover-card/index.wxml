@@ -1,0 +1,15 @@
+<view class="game-cover-card" bindtap="onTap">
+  <view class="game-cover-card-image-wrap">
+    <image class="game-cover-card-image" src="{{game.coverUrl}}" mode="aspectFill"></image>
+    <status-tag text="{{game.platform}}" variant="{{game.platformClass}}" floating="{{true}}" />
+    <view wx:if="{{game.isCollection}}" class="game-cover-card-heirloom">
+      <image class="game-cover-card-heirloom-img" src="/assets/icons/heirloom.png" mode="aspectFit"></image>
+    </view>
+  </view>
+  <text class="game-cover-card-title">{{game.title}}</text>
+  <view class="game-cover-card-meta-row">
+    <text class="game-cover-card-price">{{game.price}}</text>
+    <status-tag text="{{game.statusText}}" variant="muted" />
+  </view>
+  <text class="game-cover-card-note">{{game.meta}}</text>
+</view>

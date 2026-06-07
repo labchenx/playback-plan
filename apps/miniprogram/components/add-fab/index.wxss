@@ -1,0 +1,48 @@
+@import "../../styles/tokens.wxss";
+
+.add-fab {
+  position: relative;
+  top: -36rpx;
+  width: 88rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  color: var(--color-text-muted);
+  transition: transform var(--motion-fast);
+}
+
+.add-fab-hover {
+  transform: translateY(10rpx);
+}
+
+.add-fab-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 94rpx;
+  height: 94rpx;
+  border: 5rpx solid var(--color-bg);
+  border-radius: var(--radius-pill);
+  background: #ff3b30;
+  color: #ffffff;
+  box-shadow: 0 9rpx 0 #c92520, 0 18rpx 30rpx rgba(255, 59, 48, 0.24);
+  transition: box-shadow var(--motion-fast);
+}
+
+.add-fab-hover .add-fab-icon-wrap {
+  box-shadow: 0 1rpx 0 #c92520, 0 10rpx 24rpx rgba(255, 59, 48, 0.2);
+}
+
+.add-fab-icon-img {
+  width: 54rpx;
+  height: 54rpx;
+}
+
+.add-fab-label {
+  margin-top: var(--space-3);
+  color: var(--color-text-muted);
+  font-size: var(--font-meta);
+  font-weight: var(--weight-black);
+}

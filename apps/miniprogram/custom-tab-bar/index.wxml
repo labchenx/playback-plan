@@ -1,16 +1,1 @@
-<view class="bottom-tabs">
-  <view
-    wx:for="{{tabs}}"
-    wx:key="key"
-    class="tab-item {{selected === index ? 'active-tab' : ''}} {{item.primary ? 'primary-tab' : ''}}"
-    data-index="{{index}}"
-    hover-class="{{item.primary ? 'primary-tab-hover' : 'tab-item-hover'}}"
-    hover-stay-time="120"
-    bindtap="onTabTap"
-  >
-    <view class="tab-icon-wrap">
-      <image class="tab-icon-img {{item.iconClass}}" src="{{selected === index && item.activeIconSrc ? item.activeIconSrc : item.iconSrc}}" mode="aspectFit"></image>
-    </view>
-    <text class="tab-label">{{item.label}}</text>
-  </view>
-</view>
+<bottom-tab wx:if="{{!hidden}}" tabs="{{tabs}}" selected="{{selected}}" bindtabtap="onTabTap" />

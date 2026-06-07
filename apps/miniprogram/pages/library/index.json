@@ -1,3 +1,7 @@
 {
-  "navigationBarTitleText": "游戏库"
+  "navigationBarTitleText": "游戏库",
+  "usingComponents": {
+    "section-card": "/components/section-card/index",
+    "status-tag": "/components/status-tag/index"
+  }
 }

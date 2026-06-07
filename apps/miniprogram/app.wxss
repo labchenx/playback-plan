@@ -1,6 +1,9 @@
+@import "./styles/tokens.wxss";
+@import "./styles/common.wxss";
+
 page {
   min-height: 100vh;
-  background: #f7f4ef;
+  background: var(--color-bg-warm);
   color: #2a2521;
   font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
   box-sizing: border-box;

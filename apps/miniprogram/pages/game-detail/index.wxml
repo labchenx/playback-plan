@@ -1,0 +1,161 @@
+<view class="detail-page">
+  <view class="detail-hero">
+    <view class="hero-gamepad" aria-hidden="true">
+      <view class="pad-line pad-line-one"></view>
+      <view class="pad-line pad-line-two"></view>
+      <view class="pad-dot pad-dot-one"></view>
+      <view class="pad-dot pad-dot-two"></view>
+    </view>
+
+    <view class="nav-row">
+      <view class="circle-button" hover-class="circle-button-hover" hover-stay-time="120" bindtap="onBack">
+        <view class="back-chevron"></view>
+      </view>
+      <text class="hero-title">游戏详情</text>
+      <view class="circle-button" hover-class="circle-button-hover" hover-stay-time="120" bindtap="onEdit">
+        <text class="more-dot">•••</text>
+      </view>
+    </view>
+
+    <view wx:if="{{game}}" class="state-segment">
+      <view
+        wx:for="{{game.segmentItems}}"
+        wx:key="value"
+        class="state-item {{item.active ? 'state-item-active' : ''}}"
+      >
+        {{item.label}}
+      </view>
+    </view>
+  </view>
+
+  <view class="detail-shell">
+    <view wx:if="{{isLoading}}" class="state-card loading-card">
+      <view class="loading-mark"></view>
+      <text class="state-title">正在读取游戏详情</text>
+      <text class="state-desc">请稍等一下</text>
+    </view>
+
+    <view wx:elif="{{notFound}}" class="state-card">
+      <view class="empty-icon">!</view>
+      <text class="state-title">没有找到这款游戏</text>
+      <text class="state-desc">返回游戏库后再试一次</text>
+      <view class="state-button" hover-class="state-button-hover" hover-stay-time="120" bindtap="onBack">返回</view>
+    </view>
+
+    <block wx:else>
+      <view class="profile-card">
+        <view class="cover-box">
+          <image wx:if="{{game.hasCover}}" class="cover-image" src="{{game.coverUrl}}" mode="aspectFill"></image>
+          <view wx:else class="cover-placeholder">
+            <text class="cover-main">游</text>
+            <text class="cover-sub">{{game.platformText}}</text>
+          </view>
+          <status-tag text="{{game.platformText}}" variant="{{game.platformClass}}" floating="{{true}}" />
+        </view>
+
+        <view class="profile-main">
+          <text class="game-name">{{game.name}}</text>
+          <view class="tag-row">
+            <view class="media-pill {{game.mediaTypeClass}}">
+              <text class="media-dot"></text>
+              <text>{{game.mediaTypeText}}</text>
+            </view>
+            <view class="region-pill">{{game.regionText}}</view>
+          </view>
+          <view class="status-pill-wrap">
+            <status-tag text="状态：{{game.statusText}}" variant="{{game.statusVariant}}" />
+          </view>
+        </view>
+      </view>
+
+      <view class="summary-card">
+        <view class="summary-row">
+          <view wx:for="{{game.summaryItems}}" wx:key="label" class="summary-cell">
+            <text class="summary-label">{{item.label}}</text>
+            <view class="summary-value summary-value-{{item.tone}}">
+              <text>{{item.value}}</text>
+              <text wx:if="{{item.unit}}" class="summary-unit">{{item.unit}}</text>
+            </view>
+          </view>
+        </view>
+
+        <view class="hint-box hint-{{game.hintTone}}">
+          <text class="hint-icon">{{game.hintTone === 'info' ? 'i' : game.hintTone === 'success' ? '✓' : '!'}}</text>
+          <text>{{game.hintText}}</text>
+        </view>
+      </view>
+
+      <view class="info-card">
+        <view class="card-heading">
+          <view class="heading-icon">□</view>
+          <text>{{game.purchaseTitle}}</text>
+        </view>
+        <view class="info-list">
+          <view wx:for="{{game.purchaseRows}}" wx:key="label" class="info-row">
+            <text class="info-label">{{item.label}}</text>
+            <text class="info-value {{item.highlight ? 'info-value-highlight' : ''}}">{{item.value}}</text>
+          </view>
+        </view>
+      </view>
+
+      <view wx:if="{{game.showSellSection}}" class="info-card">
+        <view class="card-heading">
+          <view class="heading-icon">▤</view>
+          <text>卖出信息</text>
+        </view>
+
+        <view wx:if="{{game.hasSellRecord}}" class="info-list">
+          <view wx:for="{{game.sellRows}}" wx:key="label" class="info-row">
+            <text class="info-label">{{item.label}}</text>
+            <text class="info-value {{item.highlight ? 'info-value-success' : ''}}">{{item.value}}</text>
+          </view>
+        </view>
+
+        <view wx:else class="sell-empty">
+          <text class="sell-empty-title">{{game.sellEmptyTitle}}</text>
+          <text class="sell-empty-desc">{{game.sellEmptyDesc}}</text>
+        </view>
+      </view>
+
+      <view wx:if="{{game.showPlayResult}}" class="result-card">
+        <view class="result-top">
+          <view>
+            <text class="result-label">白玩指数</text>
+            <view class="result-index">{{game.playIndexText}}</view>
+          </view>
+          <view class="level-badge">{{game.playLevelText}}</view>
+        </view>
+        <view class="final-cost final-cost-{{game.finalCostTone}}">{{game.finalCostText}}</view>
+        <text class="result-desc">{{game.resultDesc}}</text>
+      </view>
+
+      <view class="info-card note-card">
+        <view class="card-heading">
+          <view class="heading-icon">i</view>
+          <text>补充信息</text>
+        </view>
+        <view class="note-box">{{game.note}}</view>
+      </view>
+    </block>
+  </view>
+
+  <view wx:if="{{game && !isLoading && !notFound}}" class="bottom-actions">
+    <view
+      wx:if="{{game.showPrimaryAction}}"
+      class="primary-button"
+      hover-class="primary-button-hover"
+      hover-stay-time="120"
+      bindtap="onPrimaryAction"
+    >
+      {{game.primaryActionText}}
+    </view>
+    <view
+      class="secondary-button {{!game.showPrimaryAction ? 'secondary-button-wide' : ''}}"
+      hover-class="secondary-button-hover"
+      hover-stay-time="120"
+      bindtap="onEdit"
+    >
+      编辑信息
+    </view>
+  </view>
+</view>

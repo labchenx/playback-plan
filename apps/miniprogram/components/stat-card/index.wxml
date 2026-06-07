@@ -1,0 +1,10 @@
+<view class="stat-card {{highlight ? 'stat-card-hot' : ''}}">
+  <view class="stat-card-label-row">
+    <image class="stat-card-icon {{iconClass}}" src="{{iconSrc}}" mode="aspectFit"></image>
+    <text>{{label}}</text>
+  </view>
+  <view class="stat-card-value-row">
+    <text class="stat-card-value">{{value}}</text>
+    <text wx:if="{{unit}}" class="stat-card-unit">{{unit}}</text>
+  </view>
+</view>

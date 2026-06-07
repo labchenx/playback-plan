@@ -1,0 +1,56 @@
+@import "../../styles/tokens.wxss";
+
+.bottom-tab {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 20;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  min-height: 96rpx;
+  padding: 12rpx 44rpx calc(12rpx + env(safe-area-inset-bottom));
+  border-top-left-radius: 34rpx;
+  border-top-right-radius: 34rpx;
+  background: var(--color-surface);
+  box-shadow: 0 -14rpx 46rpx rgba(21, 29, 44, 0.08);
+}
+
+.bottom-tab-item {
+  width: 88rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  color: var(--color-text-muted);
+  transition: transform var(--motion-fast), color var(--motion-fast);
+}
+
+.bottom-tab-item-hover {
+  transform: translateY(4rpx);
+}
+
+.bottom-tab-item-active {
+  color: var(--color-brand);
+}
+
+.bottom-tab-icon-wrap {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40rpx;
+  height: 40rpx;
+  border-radius: var(--radius-pill);
+}
+
+.bottom-tab-icon-img {
+  width: 40rpx;
+  height: 40rpx;
+}
+
+.bottom-tab-label {
+  font-size: var(--font-meta);
+  font-weight: var(--weight-black);
+}

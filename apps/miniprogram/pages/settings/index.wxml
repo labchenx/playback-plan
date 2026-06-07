@@ -1,4 +1,90 @@
-<view class="placeholder-page">
-  <text class="placeholder-title">我的</text>
-  <text class="placeholder-desc">管理平台、渠道和数据导出。</text>
+<view class="profile-page">
+  <view class="profile-hero">
+    <view class="hero-user">
+      <view class="avatar-wrap" aria-hidden="true">
+        <image class="avatar-icon" src="/assets/profile/profile-user.svg" mode="aspectFit"></image>
+      </view>
+      <view class="user-copy">
+        <text class="user-name">{{user.nickname}}</text>
+        <view class="user-subtitle-row">
+          <text class="online-dot"></text>
+          <text class="user-subtitle">{{user.subtitle}}</text>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <view class="profile-shell">
+    <view class="record-card ds-card ds-card-elevated">
+      <view class="card-title-row">
+        <image class="card-title-icon" src="/assets/profile/profile-trophy.svg" mode="aspectFit"></image>
+        <text class="card-title">我的战绩</text>
+      </view>
+
+      <view class="profile-stat-grid">
+        <view wx:for="{{stats}}" wx:key="label" class="profile-stat-box">
+          <view class="profile-stat-label-row">
+            <view class="profile-stat-icon {{item.iconClass}}">
+              <image class="profile-stat-icon-img" src="{{item.iconSrc}}" mode="aspectFit"></image>
+            </view>
+            <text class="profile-stat-label">{{item.label}}</text>
+          </view>
+          <view class="profile-stat-value-row">
+            <text class="profile-stat-value">{{item.value}}</text>
+            <text wx:if="{{item.unit}}" class="profile-stat-unit">{{item.unit}}</text>
+          </view>
+        </view>
+      </view>
+    </view>
+
+    <view class="info-card index-card" bindtap="onOpenPlayIndexInfo">
+      <image class="index-question-watermark" src="/assets/profile/profile-index-question.svg" mode="aspectFit"></image>
+      <view class="card-title-row">
+        <image class="card-title-icon card-title-icon-question" src="/assets/profile/profile-index-question-title.svg" mode="aspectFit"></image>
+        <text class="card-title">白玩指数是什么？</text>
+      </view>
+      <text class="info-main">100 表示基本回本，超过 100 表示倒赚。</text>
+      <text class="info-main">指数越高，说明这款实体游戏玩得越划算。</text>
+      <view class="example-box">
+        <image class="example-icon" src="/assets/profile/profile-example-fire.svg" mode="aspectFit"></image>
+        <text class="example-text">示例：买入 ￥260，卖出回血 ￥250，白玩指数 96，几乎白玩。</text>
+      </view>
+    </view>
+
+    <view class="info-card about-card">
+      <view class="card-title-row">
+        <image class="card-title-icon" src="/assets/profile/profile-about-info.svg" mode="aspectFit"></image>
+        <text class="card-title">关于白玩计划</text>
+      </view>
+      <text class="about-copy">白玩计划是一个实体游戏买卖回血账本，帮你记录买游戏花了多少、卖游戏回了多少，以及哪些游戏实现了白玩。</text>
+      <view class="about-note">
+        <view class="note-line">
+          <text class="note-dot"></text>
+          <text>数字版游戏可以记录，但不参与回血和白玩统计。</text>
+        </view>
+        <view class="note-line">
+          <text class="note-dot"></text>
+          <text>当前版本暂不接入二手市场价格。</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="profile-links">
+      <view
+        wx:for="{{links}}"
+        wx:key="label"
+        class="profile-link"
+        data-action="{{item.action}}"
+        hover-class="profile-link-hover"
+        hover-stay-time="120"
+        bindtap="onOpenLink"
+      >
+        <text class="profile-link-label">{{item.label}}</text>
+        <view class="profile-link-right">
+          <text wx:if="{{item.value}}" class="profile-link-value">{{item.value}}</text>
+          <image class="profile-link-icon" src="/assets/profile/profile-link-gamepad.svg" mode="aspectFit"></image>
+        </view>
+      </view>
+    </view>
+  </view>
 </view>

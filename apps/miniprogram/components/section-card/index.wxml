@@ -1,0 +1,7 @@
+<view class="section-card section-card-{{spacing}} {{tabSafe ? 'section-card-tab-safe' : ''}}">
+  <view wx:if="{{title}}" class="section-card-header">
+    <text class="section-card-title">{{title}}</text>
+    <slot name="extra"></slot>
+  </view>
+  <slot></slot>
+</view>

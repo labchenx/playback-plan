@@ -1,4 +1,10 @@
 {
   "navigationBarTitleText": "白玩计划",
-  "disableScroll": false
+  "disableScroll": false,
+  "usingComponents": {
+    "section-card": "../../components/section-card/index",
+    "stat-card": "../../components/stat-card/index",
+    "action-entry": "../../components/action-entry/index",
+    "game-cover-card": "../../components/game-cover-card/index"
+  }
 }

@@ -316,7 +316,6 @@ export type GameItem = {
   coverUrl?: string;
   region?: string;
   edition?: string;
-  condition?: string;
 
   status: GameStatus;
 

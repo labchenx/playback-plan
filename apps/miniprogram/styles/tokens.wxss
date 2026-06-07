@@ -1,0 +1,55 @@
+page,
+view,
+text,
+button {
+  --color-bg: #f4f5f8;
+  --color-bg-warm: #f7f4ef;
+  --color-surface: #ffffff;
+  --color-surface-muted: #f9fafb;
+  --color-line: #f3f4f6;
+  --color-line-strong: #e5e7eb;
+  --color-text: #111827;
+  --color-text-strong: #0f172a;
+  --color-text-secondary: #6b7280;
+  --color-text-muted: #9ca3af;
+  --color-text-faint: #cfd3da;
+  --color-brand: #ef3c35;
+  --color-brand-bright: #ff453a;
+  --color-brand-deep: #b91c11;
+  --color-success: #10b981;
+  --color-info: #3b82f6;
+  --color-warning: #f59e0b;
+  --color-dark: #111827;
+  --radius-xs: 7rpx;
+  --radius-sm: 22rpx;
+  --radius-md: 27rpx;
+  --radius-lg: 30rpx;
+  --radius-xl: 40rpx;
+  --radius-hero: 66rpx;
+  --radius-pill: 999rpx;
+  --space-1: 4rpx;
+  --space-2: 8rpx;
+  --space-3: 12rpx;
+  --space-4: 16rpx;
+  --space-5: 20rpx;
+  --space-6: 24rpx;
+  --space-7: 28rpx;
+  --space-8: 34rpx;
+  --font-caption: 16rpx;
+  --font-meta: 17rpx;
+  --font-small: 18rpx;
+  --font-body: 21rpx;
+  --font-title: 28rpx;
+  --font-number: 35rpx;
+  --font-hero-number: 74rpx;
+  --weight-medium: 600;
+  --weight-bold: 800;
+  --weight-black: 900;
+  --shadow-soft: 0 13rpx 50rpx rgba(0, 0, 0, 0.06);
+  --shadow-card: 0 3rpx 25rpx rgba(0, 0, 0, 0.03);
+  --shadow-cover: 0 7rpx 20rpx rgba(0, 0, 0, 0.05);
+  --shadow-pressable: 0 8rpx 0 #f3f4f6, 0 11rpx 22rpx rgba(21, 29, 44, 0.03);
+  --shadow-brand: 0 20rpx 54rpx rgba(239, 46, 40, 0.22);
+  --shadow-dark: 0 22rpx 42rpx rgba(17, 24, 39, 0.18);
+  --motion-fast: 120ms ease;
+}

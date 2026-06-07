@@ -9,17 +9,18 @@ type TabItem = {
 };
 
 const tabs: TabItem[] = [
-  { key: 'home', label: '首页', iconClass: 'tab-home', iconSrc: '/assets/icons/tab-home.svg', activeIconSrc: '/assets/icons/tab-home-active.svg', pagePath: '/pages/home/index' },
-  { key: 'library', label: '游戏库', iconClass: 'tab-library', iconSrc: '/assets/icons/tab-library.svg', activeIconSrc: '/assets/icons/tab-library-active.svg', pagePath: '/pages/library/index' },
-  { key: 'add', label: '添加', iconClass: 'tab-add', iconSrc: '/assets/icons/tab-add.svg', pagePath: '/pages/add/index', primary: true },
-  { key: 'stats', label: '统计', iconClass: 'tab-stats', iconSrc: '/assets/icons/tab-stats.svg', activeIconSrc: '/assets/icons/tab-stats-active.svg', pagePath: '/pages/stats/index' },
-  { key: 'settings', label: '我的', iconClass: 'tab-user', iconSrc: '/assets/icons/tab-user.svg', activeIconSrc: '/assets/icons/tab-user-active.svg', pagePath: '/pages/settings/index' }
+  { key: 'home', label: '首页', iconClass: 'tab-home', iconSrc: '/assets/tab/tab-home.svg', activeIconSrc: '/assets/tab/tab-home-active.svg', pagePath: '/pages/home/index' },
+  { key: 'library', label: '游戏库', iconClass: 'tab-library', iconSrc: '/assets/tab/tab-library.svg', activeIconSrc: '/assets/tab/tab-library-active.svg', pagePath: '/pages/library/index' },
+  { key: 'add', label: '添加', iconClass: 'tab-add', iconSrc: '/assets/tab/tab-add.svg', pagePath: '/pages/add/index', primary: true },
+  { key: 'payback', label: '待回血', iconClass: 'tab-stats', iconSrc: '/assets/tab/tab-payback.svg', activeIconSrc: '/assets/tab/tab-payback-active.svg', pagePath: '/pages/stats/index' },
+  { key: 'settings', label: '我的', iconClass: 'tab-user', iconSrc: '/assets/tab/tab-user.svg', activeIconSrc: '/assets/tab/tab-user-active.svg', pagePath: '/pages/settings/index' }
 ];
 
 Component({
   data: {
     selected: 0,
-    tabs
+    tabs,
+    hidden: false
   },
 
   pageLifetimes: {
@@ -28,16 +29,20 @@ Component({
       const current = pages[pages.length - 1];
       const route = `/${current.route}`;
       const selected = tabs.findIndex((item) => item.pagePath === route);
+      const hidden = route === '/pages/add/index';
 
       if (selected !== -1) {
-        this.setData({ selected });
+        this.setData({ selected, hidden });
+        return;
       }
+
+      this.setData({ hidden });
     }
   },
 
   methods: {
-    onTabTap(event: WechatMiniprogram.TouchEvent) {
-      const index = Number(event.currentTarget.dataset.index);
+    onTabTap(event: WechatMiniprogram.CustomEvent<{ index: number }>) {
+      const index = Number(event.detail.index);
       const target = tabs[index];
 
       if (!target) return;
